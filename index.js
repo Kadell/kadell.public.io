@@ -1,7 +1,7 @@
 var readQuery = function(){
 	let queryText = document.getElementById("queryText").value;
-	let changedString = queryText.replace(/>/g, "&gt;");
-	changedString = changedString.replace(/</g, "&lt;");
+	let changedString = queryText.replace(/>/g, "LPGT");
+	changedString = changedString.replace(/</g, "LPLT");
 	
 
 	var cmdName = lpTag.agentSDK.cmdNames.write; // = "Write ChatLine"
