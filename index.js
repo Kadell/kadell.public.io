@@ -6,7 +6,7 @@ var readQuery = function(){
 
 	var cmdName = lpTag.agentSDK.cmdNames.write; // = "Write ChatLine"
         var data = {text: changedString};
-	lpTag.agentSDK.command(cmdName, data, notifyWhenDone);
+	lpTag.agentSDK.command(cmdName, data);
 	
 }
 
