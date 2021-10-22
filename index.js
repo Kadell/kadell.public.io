@@ -16,17 +16,12 @@ if (queryObj.source === "visitor") {
 let queryObjText = queryObj.text;
 let updated = false;
 //if conversation from visitor, match the pattern to replace
-if(queryObjText.includes("gt1")){
-	updatedQueryObjText = queryObjText.replace(/&gt;/g, ">");
-	updated = true;
-	if(updatedQueryObjText.includes("lt1")){
-	updatedQueryObjText = updatedQueryObjText.replace(/&gt;/g, "<");
-	}
-}
-else if(queryObjText.includes("&lt;")){
-	updatedQueryObjText = queryObjText.replace(/&lt;/g, "<");
+if(queryObjText.includes("LPGT1") || queryObjText.includes("LPLT1")){
+	updatedQueryObjText = queryObjText.replace(/LPGT1/g, ">");
+	updatedQueryObjText = updatedQueryObjText.replace(/LPLT1/g, "<");
 	updated = true;
 }
+
 
 if(updated){
 	document.getElementById("updatedQuery").innerHTML = updatedQueryObjText;
@@ -35,8 +30,8 @@ if(updated){
 };
 var readQuery = function(){
 	let queryText = document.getElementById("queryText").value;
-	let changedString = queryText.replace(/>/g, "&gt;");
-	changedString = changedString.replace(/</g, "&lt;");
+	let changedString = queryText.replace(/>/g, "LPGT1");
+	changedString = changedString.replace(/</g, "LPLT1");
 	
 	var notifyWhenDone = function(err) {
         if (err) {
@@ -48,11 +43,7 @@ var readQuery = function(){
 	var cmdName = lpTag.agentSDK.cmdNames.write; // = "Write ChatLine"
     var data = {text: changedString};
 	lpTag.agentSDK.command(cmdName, data, notifyWhenDone);
-	lpTag.hooks.push({
-	name: "BEFORE_SEND_VISITOR_LINE",
-	callback: function(options) {
-	}
-});
+	
 }
 var notifyWhenDone =function(err) {
 if (err){
